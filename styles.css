@@ -1012,6 +1012,11 @@ h1 {
   border-left: 5px solid var(--sage);
 }
 
+.fit-workflow {
+  display: block;
+  margin-top: 7px;
+}
+
 .route-interview {
   max-width: 960px;
   margin: 48px auto 0;

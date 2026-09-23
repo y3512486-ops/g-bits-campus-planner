@@ -268,14 +268,12 @@ function displayProjectName(project) {
 function renderRoleCard(project, [role, city, focus], index) {
   const rolePoints = project.roles.length === 1
     ? project.plannerPoints
-    : [
-        project.plannerPoints[index],
-        ...(index === project.roles.length - 1 ? project.plannerPoints.slice(project.roles.length) : []),
-      ].filter(Boolean);
+    : [project.plannerPoints[index]].filter(Boolean);
   return `<article class="role-card"><strong>${role}</strong><span>${city}</span><small>${focus}</small><div class="role-work"><p>你会参与</p><ul>${rolePoints.map((point) => `<li>${point}</li>`).join("")}</ul></div></article>`;
 }
 
 function renderProjectPage(project) {
+  const sharedWork = project.roles.length > 1 ? project.plannerPoints.slice(project.roles.length) : [];
   app.innerHTML = `
     <main class="route-shell project-page">
       ${renderPageHeader("项目介绍 / 策划岗位", displayProjectName(project), project.oneLiner)}
@@ -290,7 +288,7 @@ function renderProjectPage(project) {
       <section class="route-section route-roles-section">
         <div class="section-heading"><p class="route-kicker">2027 届校招 · 开放岗位</p><h2>你可以投递的策划方向</h2></div>
         <div class="role-list route-role-list">${project.roles.map((role, index) => renderRoleCard(project, role, index)).join("")}</div>
-        <p class="fit-line"><strong>适合这样的你：</strong>${project.fitHint}</p>
+        <p class="fit-line"><strong>适合这样的你：</strong>${project.fitHint}${sharedWork.length ? `<span class="fit-workflow"><strong>工作方式：</strong>${sharedWork.join(" ")}</span>` : ""}</p>
         <div class="route-apply-panel"><div><p class="route-kicker">校招策划岗位</p><strong>准备好把你的游戏体感写成设计了吗？</strong></div><a class="dialog-cta apply-pulse" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">投递相关岗位 ↗</a></div>
       </section>
       <section class="interview-placeholder route-interview"><strong>校招生小访谈</strong><p>访谈内容筹备中，后续将在这里补充同项目校招生的选择、收获与建议。</p></section>
