@@ -246,7 +246,7 @@ function renderHome() {
                 (project) => `
                   <a class="project-station" href="?project=${project.id}" aria-label="查看${project.name}项目介绍">
                     ${renderConsole(project)}
-                    <span class="project-label">${project.name}</span>
+                    <span class="project-label${["daoyou-dig-treasure", "m98"].includes(project.id) ? " project-label--compact" : ""}">${project.name}</span>
                     <span class="project-subtitle">${project.stage}</span>
                   </a>
                 `,

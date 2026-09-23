@@ -483,6 +483,15 @@ h1 {
   box-shadow: 3px 3px 0 #9c6349;
 }
 
+.project-label--compact {
+  width: min(100%, 330px);
+  padding-right: 4px;
+  padding-left: 4px;
+  font-size: clamp(14px, 2.4vw, 30px);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
 .project-subtitle {
   position: relative;
   z-index: 2;
@@ -1355,6 +1364,10 @@ h1 {
     font-size: clamp(27px, 7vw, 34px);
     font-weight: 700;
     letter-spacing: 0.02em;
+  }
+
+  .project-label--compact {
+    font-size: clamp(14px, 3.7vw, 24px);
   }
 
   .project-subtitle {
