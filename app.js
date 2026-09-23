@@ -265,6 +265,16 @@ function displayProjectName(project) {
   return project.name.replace("M98", '<span class="normal-numbers">M98</span>');
 }
 
+function renderRoleCard(project, [role, city, focus], index) {
+  const rolePoints = project.roles.length === 1
+    ? project.plannerPoints
+    : [
+        project.plannerPoints[index],
+        ...(index === project.roles.length - 1 ? project.plannerPoints.slice(project.roles.length) : []),
+      ].filter(Boolean);
+  return `<article class="role-card"><strong>${role}</strong><span>${city}</span><small>${focus}</small><div class="role-work"><p>你会参与</p><ul>${rolePoints.map((point) => `<li>${point}</li>`).join("")}</ul></div></article>`;
+}
+
 function renderProjectPage(project) {
   app.innerHTML = `
     <main class="route-shell project-page">
@@ -279,8 +289,7 @@ function renderProjectPage(project) {
       </section>
       <section class="route-section route-roles-section">
         <div class="section-heading"><p class="route-kicker">2027 届校招 · 开放岗位</p><h2>你可以投递的策划方向</h2></div>
-        <div class="role-list route-role-list">${project.roles.map(([role, city, focus]) => `<article class="role-card"><strong>${role}</strong><span>${city}</span><small>${focus}</small></article>`).join("")}</div>
-        <div class="planner-role-brief"><div class="planner-role-brief__heading"><p class="route-kicker">岗位重点</p><h3>${project.plannerTitle}</h3></div><div class="planner-points planner-points--compact">${project.plannerPoints.map((point, index) => `<article><span class="point-index">0${index + 1}</span><p>${point}</p></article>`).join("")}</div></div>
+        <div class="role-list route-role-list">${project.roles.map((role, index) => renderRoleCard(project, role, index)).join("")}</div>
         <p class="fit-line"><strong>适合这样的你：</strong>${project.fitHint}</p>
         <div class="route-apply-panel"><div><p class="route-kicker">校招策划岗位</p><strong>准备好把你的游戏体感写成设计了吗？</strong></div><a class="dialog-cta apply-pulse" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">投递相关岗位 ↗</a></div>
       </section>
