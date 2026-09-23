@@ -1369,10 +1369,6 @@ h1 {
     padding: 20px 16px;
   }
 
-  .quiz-aside {
-    order: -1;
-  }
-
   .quiz-result-actions {
     display: grid;
     grid-template-columns: 1fr;
