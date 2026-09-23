@@ -5,6 +5,13 @@
 }
 
 @font-face {
+  font-family: "QianTuSnow";
+  src: url("assets/fonts/QianTuSubset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Maruko";
   src: url("assets/fonts/MarukoSubset-Regular.woff2") format("woff2");
   font-weight: 400;
@@ -34,7 +41,7 @@
   --line: #8b6655;
   --radius: 8px;
   --body-font: "Maruko", "Microsoft YaHei", "PingFang SC", sans-serif;
-  --title-font: "TitleChinese", "Maruko", "Microsoft YaHei", "PingFang SC", sans-serif;
+  --title-font: "QianTuSnow", "Maruko", "Microsoft YaHei", "PingFang SC", sans-serif;
 }
 
 * {
@@ -96,6 +103,7 @@ button {
 }
 
 .wall-detail {
+  display: none;
   position: absolute;
   top: 9%;
   width: 88px;
@@ -310,6 +318,7 @@ h1 {
 
 .desk::before,
 .desk::after {
+  display: none;
   position: absolute;
   top: 50%;
   width: 18px;
@@ -330,6 +339,7 @@ h1 {
 }
 
 .desk-topline {
+  display: none;
   position: absolute;
   top: 24px;
   right: 28px;
@@ -364,6 +374,7 @@ h1 {
   padding: 0 2px 8px;
   color: var(--ink);
   text-align: center;
+  text-decoration: none;
   background: transparent;
   border: 0;
 }
@@ -461,8 +472,8 @@ h1 {
   padding: 5px 8px;
   color: #593f36;
   font-family: var(--title-font);
-  font-size: clamp(25px, 3vw, 34px);
-  font-weight: 500;
+  font-size: clamp(29px, 3.5vw, 40px);
+  font-weight: 700;
   letter-spacing: 0.025em;
   line-height: 1.25;
   overflow-wrap: anywhere;
@@ -1287,7 +1298,8 @@ h1 {
 
   .project-label {
     padding: 6px 4px;
-    font-size: clamp(24px, 6vw, 30px);
+    font-size: clamp(27px, 7vw, 34px);
+    font-weight: 700;
     letter-spacing: 0.02em;
   }
 
