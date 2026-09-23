@@ -64,6 +64,13 @@ const projects = [
       "在“玩家需求 → 玩法尝试 → 测试反馈 → 迭代”循环里持续校准战斗与社交。",
     ],
     fitHint: "适合对 MMO、修仙或社交体验有长期兴趣，愿意用玩家需求校准表达的人。",
+    interview: {
+      title: "问剑长生 · 游戏策划校招生",
+      answers: [
+        ["为什么选择吉比特 / 这个项目？", "我是奥比岛和问道的老玩家，本来就喜欢吉比特。最开始投递的是 MMO 策划，因为玩过不少 MMO，实习时也在大型传统 MMO 项目中积累过经验；面试时才知道项目是问剑，而修仙题材也正是我感兴趣的方向。"],
+        ["入职后的最大收获？", "项目人手不算充足，入职后很快就能直接接触项目、推进工作，算是经历更多、经验更多。团队氛围很好，导师和前辈有问必答，也会主动关心工作和生活，让我在这里幸福地学到真东西。"],
+      ],
+    },
     frame: "assets/frame-wenjian.png",
     art: "assets/wenjian.jpg?v=20260923-project-art",
     siteUrl: "https://jian.leiting.com",
@@ -130,6 +137,13 @@ const projects = [
       "从问题分析、方案制作到原型迭代，参与新项目早期的核心体验定义。",
     ],
     fitHint: "适合希望从核心问题开始验证，愿意用原型、表格或 Demo 推动新项目向前的人。",
+    interview: {
+      title: "M98 项目 · 游戏策划校招生",
+      answers: [
+        ["为什么选择吉比特 / 这个项目？", "项目一开始就瞄准高品质动作游戏，这是我感兴趣的类型。还在学生时期，我接触过公司的沈老师、张老师和其他制作人，感受到吉比特对创作者很友好，也愿意培养应届生。"],
+        ["入职后的最大收获？", "从项目早期开始参与，能直接接触真实问题、推进相关工作，经历更多、经验也更多。"],
+      ],
+    },
     frame: "assets/frame-m98.png",
     art: "assets/m98.png?v=20260923-project-art",
     siteUrl: null,
@@ -272,6 +286,13 @@ function renderRoleCard(project, [role, city, focus], index) {
   return `<article class="role-card"><strong>${role}</strong><span>${city}</span><small>${focus}</small><div class="role-work"><p>你会参与</p><ul>${rolePoints.map((point) => `<li>${point}</li>`).join("")}</ul></div></article>`;
 }
 
+function renderInterview(project) {
+  if (!project.interview) {
+    return `<section class="interview-placeholder route-interview"><strong>校招生小访谈</strong><p>访谈内容筹备中，后续将在这里补充同项目校招生的选择、收获与建议。</p></section>`;
+  }
+  return `<section class="interview-placeholder route-interview route-interview--filled"><div class="interview-heading"><div><p class="route-kicker">校招生小访谈</p><strong>${project.interview.title}</strong></div><span>真实分享</span></div><div class="interview-answers">${project.interview.answers.map(([question, answer]) => `<article class="interview-answer"><h3>${question}</h3><p>${answer}</p></article>`).join("")}</div></section>`;
+}
+
 function renderProjectPage(project) {
   const sharedWork = project.roles.length > 1 ? project.plannerPoints.slice(project.roles.length) : [];
   app.innerHTML = `
@@ -291,7 +312,7 @@ function renderProjectPage(project) {
         <p class="fit-line"><strong>适合这样的你：</strong>${project.fitHint}${sharedWork.length ? `<span class="fit-workflow"><strong>工作方式：</strong>${sharedWork.join(" ")}</span>` : ""}</p>
         <div class="route-apply-panel"><div><p class="route-kicker">校招策划岗位</p><strong>准备好把你的游戏体感写成设计了吗？</strong></div><a class="dialog-cta apply-pulse" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">投递相关岗位 ↗</a></div>
       </section>
-      <section class="interview-placeholder route-interview"><strong>校招生小访谈</strong><p>访谈内容筹备中，后续将在这里补充同项目校招生的选择、收获与建议。</p></section>
+      ${renderInterview(project)}
       <footer class="site-footer route-footer"><p>本站为个人制作，内容仅供参考，最终以官方招聘信息为准。</p><a href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位</a></footer>
     </main>
   `;
