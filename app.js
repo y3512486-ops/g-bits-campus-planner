@@ -287,9 +287,7 @@ function renderRoleCard(project, [role, city, focus], index) {
 }
 
 function renderInterview(project) {
-  if (!project.interview) {
-    return `<section class="interview-placeholder route-interview"><strong>校招生小访谈</strong><p>访谈内容筹备中，后续将在这里补充同项目校招生的选择、收获与建议。</p></section>`;
-  }
+  if (!project.interview) return "";
   return `<section class="interview-placeholder route-interview route-interview--filled"><div class="interview-heading"><div><p class="route-kicker">校招生小访谈</p><strong>${project.interview.title}</strong></div><span>真实分享</span></div><div class="interview-answers">${project.interview.answers.map(([question, answer]) => `<article class="interview-answer"><h3>${question}</h3><p>${answer}</p></article>`).join("")}</div></section>`;
 }
 
