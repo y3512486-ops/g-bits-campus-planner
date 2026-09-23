@@ -1,0 +1,368 @@
+const OFFICIAL_JOB_LIST_URL =
+  "https://hr.g-bits.com/web/index.html#/post-web/post-list?postTypes=%E6%B8%B8%E6%88%8F%E7%AD%96%E5%88%92%E7%B1%BB";
+const GBITS_SITE_URL = "https://www.g-bits.com/zh/";
+
+const projects = [
+  {
+    id: "wand-sword-legend",
+    name: "《杖剑传说》",
+    stage: "已上线运营 · 厦门",
+    roles: [
+      ["数值策划", "厦门", "玩法、系统与战斗的数值体验设计和迭代"],
+      ["战斗策划", "厦门", "战斗逻辑、技能机制与表现、技能强度的设计和迭代"],
+    ],
+    tags: ["异世界幻想", "放置 MMORPG", "数值", "战斗"],
+    oneLiner: "轻松放置 × 自动战棋 × 地图探索 × 轻社交的异世界冒险 MMORPG。",
+    description:
+      "它把日常时间成本交给自动战斗和离线挂机，把策略空间留给技能标签、攻击范围和构筑选择。项目早期用小步快跑的 Demo 先验证战斗，再验证探索与社交，策划会持续把真实反馈变成下一轮设计。",
+    plannerTitle: "策划在这里解决什么问题？",
+    plannerPoints: [
+      "战斗策划：把规则、空间表现、技能标签和强度组织成玩家愿意研究的战斗体系。",
+      "数值策划：让成长、装备和战斗投入转化为可感知的正向反馈，并保持流派平衡。",
+      "用 Demo、测试、复盘快速验证想法，再和程序、美术、测试、运营一起推到上线。",
+    ],
+    fitHint: "适合喜欢拆解 RPG、策略、卡牌或 SLG 机制，并愿意持续验证设计的人。",
+    frame: "assets/frame-wand.png",
+    art: "assets/wand.jpg",
+    siteUrl: "https://zjcs.leiting.com/?id=M503835",
+    screen: { left: 22, top: 18, width: 56, height: 42, radius: 8 },
+  },
+  {
+    id: "daoyou-dig-treasure",
+    name: "《道友来挖宝》",
+    stage: "已上线运营 · 厦门",
+    roles: [["游戏策划", "厦门", "线上版本的玩法、活动、养成及资料片设计"]],
+    tags: ["问道 IP", "回合制 MMO", "小游戏", "玩法活动"],
+    oneLiner: "《问道》IP 衍生的回合制 MMO 小游戏，挖宝爽感 × 轻量化放置。",
+    description:
+      "核心循环围绕“挖宝获得奖励 → 提升战力 → 继续挖宝”，用自动挂机适配小游戏用户碎片化的游玩习惯，同时保留回合制策略和 IP 世界观。",
+    plannerTitle: "策划在这里解决什么问题？",
+    plannerPoints: [
+      "把藏宝图、守护、唤灵、古宝和坐骑组织成高频但不疲劳的挖宝反馈。",
+      "围绕轻量化用户设计玩法、活动、养成和赛季内容，让玩家随玩随停也能持续成长。",
+      "在精干团队里，从文档、配置、协作、验收一路推进到上线验证。",
+    ],
+    fitHint: "适合在意玩家为什么投入或流失，也愿意处理文档、协作和验收细节的人。",
+    frame: "assets/frame-daoyou.png",
+    art: "assets/daoyou.png",
+    siteUrl: "https://acts.leiting.com/game/common/invite/imini_dylwb_1",
+    screen: { left: 21, top: 27, width: 58, height: 43, radius: 10 },
+  },
+  {
+    id: "ask-sword-longevity",
+    name: "《问剑长生》",
+    stage: "已上线运营 · 深圳",
+    roles: [["游戏策划", "深圳", "玩法机制、战斗逻辑、技能机制与表现、技能强度的设计和迭代"]],
+    tags: ["修仙", "轻社交", "3D 御剑", "战斗机制"],
+    oneLiner: "真 3D 御剑放置修仙手游，轻松成长 × 轻社交。",
+    description:
+      "玩家可以在真 3D 场景里自由御剑、空中斗法，也可以选择独证大道或加入道侣、宗门。离线挂机不亏进度、流派一键重置，让修仙是自由选路而不是单行道。",
+    plannerTitle: "策划在这里解决什么问题？",
+    plannerPoints: [
+      "把御剑飞行、神通法宝和空中战斗做成区别于传统 2D 修仙的空间体验。",
+      "设计可重置、可试错的流派和成长关系，降低玩家探索新玩法的成本。",
+      "在“玩家需求 → 玩法尝试 → 测试反馈 → 迭代”循环里持续校准战斗与社交。",
+    ],
+    fitHint: "适合对 MMO、修仙或社交体验有长期兴趣，愿意用玩家需求校准表达的人。",
+    frame: "assets/frame-wenjian.png",
+    art: "assets/wenjian.png",
+    siteUrl: "https://jian.leiting.com",
+    screen: { left: 26, top: 24.5, width: 48, height: 41, radius: 6 },
+  },
+  {
+    id: "a-thought-free",
+    name: "《一念逍遥》",
+    stage: "稳定运营 5 年 · 深圳",
+    roles: [["游戏策划", "深圳", "系统、数值、玩法的设计与上线迭代"]],
+    tags: ["水墨国风", "放置修仙", "长线成长", "系统体验"],
+    oneLiner: "水墨国风放置修仙手游，轻松成长 × 题材代入感。",
+    description:
+      "项目用放置降低日常负担，同时保留修炼、突破、秘境、宗门和多人副本的体验。策划要让玩家感到“真的在修仙”，也要让长期版本持续有新鲜感。",
+    plannerTitle: "策划在这里解决什么问题？",
+    plannerPoints: [
+      "把修炼、境界、神通、功法等题材概念转成玩家能感知的成长反馈。",
+      "让放置、社交、探索和限时活动彼此支撑，而不是互相消耗玩家时间。",
+      "结合玩家行为、数据和反馈，持续打磨系统、数值、玩法与长线节奏。",
+    ],
+    fitHint: "适合对体验本质有好奇心，既能理解不同玩家，也愿意用客观结果验证直觉的人。",
+    frame: "assets/frame-yinian.png",
+    art: "assets/yinian.jpg",
+    siteUrl: "https://xian.leiting.com",
+    screen: { left: 26.5, top: 25, width: 47, height: 43.5, radius: 7 },
+  },
+  {
+    id: "wen-dao-mobile",
+    name: "《问道》手游",
+    stage: "稳定运营 10 年 · 厦门",
+    roles: [["游戏策划", "厦门", "版本内容的玩法设定与体验落地、玩家反馈跟进与优化"]],
+    tags: ["传统国风", "回合制 MMO", "长线运营", "版本内容"],
+    oneLiner: "经典国风回合制 MMORPG，深度社交 × 长线养成。",
+    description:
+      "依托《问道》端游十余年积累，项目保留五行、刷道、杀星、宠物、装备和帮战等核心循环，再根据手游节奏持续适配。新服、周年和全民争霸赛让版本内容成为玩家定期回流的理由。",
+    plannerTitle: "策划在这里解决什么问题？",
+    plannerPoints: [
+      "在经典玩法和玩家归属感的基础上，设计能被新老玩家理解的版本内容。",
+      "维护深度社交与玩家社群，把活动、规则和长期目标连成可持续的体验。",
+      "跟进玩家反馈，在成熟框架里寻找创新点，理解一款产品如何长期运营。",
+    ],
+    fitHint: "适合热爱传统回合制、对国风文化有兴趣，并想理解长线产品如何持续迭代的人。",
+    frame: "assets/frame-wendao.png",
+    art: "assets/wendao.jpg",
+    siteUrl: "https://wd.leiting.com/home",
+    secondaryArt: "assets/wendao-secondary.jpg",
+    screen: { left: 28, top: 13, width: 44, height: 30.5, radius: 3 },
+    secondaryScreen: { left: 31, top: 53.5, width: 38.5, height: 30, radius: 3 },
+  },
+  {
+    id: "m98",
+    name: "《代号 M98》",
+    stage: "新项目 · 深圳",
+    roles: [
+      ["战斗策划", "深圳", "角色、武器、敌人与 Boss 战斗体验，以及可体验原型的设计"],
+      ["养成策划", "深圳", "角色、装备、武器、技能与成长策略 Build 的设计和验证"],
+    ],
+    tags: ["UE5", "角色养成", "战斗体验", "Build"],
+    oneLiner: "基于 UE5 开发的移动端角色养成与战斗新项目，正在搭建体验骨架。",
+    description:
+      "项目已经正式立项，方向已经锚定，方案仍有探索空间。战斗策划把想法做成可体验原型；养成策划让外形成长、战斗能力和玩家选择形成清晰的策略关系。",
+    plannerTitle: "策划在这里解决什么问题？",
+    plannerPoints: [
+      "战斗策划：设计角色、武器、敌人与 Boss 的规则、节奏和反馈。",
+      "养成策划：搭建角色、装备、武器、技能与成长策略 Build 的关系。",
+      "从问题分析、方案制作到原型迭代，参与新项目早期的核心体验定义。",
+    ],
+    fitHint: "适合希望从核心问题开始验证，愿意用原型、表格或 Demo 推动新项目向前的人。",
+    frame: "assets/frame-m98.png",
+    art: null,
+    siteUrl: null,
+    screen: { left: 25.5, top: 29, width: 49, height: 36.5, radius: 2 },
+  },
+];
+
+const quizQuestions = [
+  {
+    id: "stage",
+    title: "你更想在哪种现场里，把第一个方案交给玩家？",
+    options: [
+      ["live", "已经上线的项目", "做内容迭代、体验优化和玩家反馈验证。"],
+      ["new", "方向已锚定的新项目", "从角色成长与战斗体验的骨架开始搭起。"],
+    ],
+  },
+  {
+    id: "interest",
+    title: "你现在最想先拆哪一道设计题？",
+    options: [
+      ["numeric", "成长与强度", "数值平衡、成长曲线、系统关系。"],
+      ["combat", "战斗的一瞬间", "技能机制、手感、节奏与反馈。"],
+      ["growth", "角色与 Build", "角色、装备成长和不同策略选择。"],
+      ["general", "一整段玩家旅程", "整体玩法、活动、版本内容与用户体验。"],
+    ],
+  },
+  {
+    id: "tone",
+    title: "哪种游戏气质最让你想点进去？",
+    options: [
+      ["fantasy", "异世界幻想", "轻松成长、探索与策略对抗。"],
+      ["xianxia", "国风修仙", "御剑、技能、社交或长线成长。"],
+      ["light-turn-based", "轻量国风回合", "挖宝、挂机和多样玩法。"],
+      ["classic-turn-based", "经典国风回合", "社交、版本与长期运营。"],
+      ["role-first", "题材都可以", "我更看重岗位方向本身。"],
+    ],
+  },
+];
+
+const app = document.querySelector("#app");
+
+function screenStyle(screen) {
+  return [
+    `--screen-left:${screen.left}%`,
+    `--screen-top:${screen.top}%`,
+    `--screen-width:${screen.width}%`,
+    `--screen-height:${screen.height}%`,
+    `--screen-radius:${screen.radius}%`,
+  ].join(";");
+}
+
+function renderConsole(project) {
+  const primaryScreen = project.art
+    ? `<span class="console-screen" style="${screenStyle(project.screen)}"><img src="${project.art}" alt="${project.name} 官方项目画面" /></span>`
+    : `<span class="console-screen console-screen--m98" style="${screenStyle(project.screen)}"><strong>代号 <span class="normal-numbers">M98</span></strong><span>战斗 × 养成</span></span>`;
+  const secondaryScreen = project.secondaryArt
+    ? `<span class="console-screen console-screen--secondary" style="${screenStyle(project.secondaryScreen)}"><img src="${project.secondaryArt}" alt="" /></span>`
+    : "";
+  return `<span class="console">${primaryScreen}${secondaryScreen}<img class="console-frame" src="${project.frame}" alt="" /></span>`;
+}
+
+function renderProjectArt(project, context = "project") {
+  if (!project.art) {
+    return `<div class="project-art project-art--placeholder" role="img" aria-label="${project.name} 项目画面筹备中"><strong>代号 <span class="normal-numbers">M98</span></strong><span>战斗 × 养成</span></div>`;
+  }
+  const image = `<img src="${project.art}" alt="${project.name} 官方项目画面" />`;
+  const linkLabel = context === "result" ? "点击进入项目官网" : "点击查看项目官网";
+  if (!project.siteUrl) return `<div class="project-art">${image}</div>`;
+  return `<a class="project-art project-art-link" href="${project.siteUrl}" target="_blank" rel="noreferrer">${image}<span class="project-art-hint">${linkLabel} ↗</span></a>`;
+}
+
+function renderHome() {
+  app.innerHTML = `
+    <main class="site-shell">
+      <section class="playtest-room" aria-labelledby="site-title">
+        <div class="wall-detail wall-detail--left" aria-hidden="true"></div>
+        <div class="wall-detail wall-detail--right" aria-hidden="true"></div>
+        <div class="tablet-stage">
+          <div class="tablet" aria-label="校招专题开局屏幕">
+            <div class="tablet-camera" aria-hidden="true"></div>
+            <div class="tablet-screen">
+              <p class="eyebrow">2027 届秋招</p>
+              <h1 id="site-title">吉比特游戏策划</h1>
+              <p class="hero-meta">6 个项目 · 8 个职位 · 厦门 / 深圳</p>
+              <p class="hero-copy"><a href="${GBITS_SITE_URL}" target="_blank" rel="noreferrer">吉比特</a>专注网络游戏的创意策划、研发制作与运营；雷霆游戏为旗下运营品牌。</p>
+              <div class="hero-actions" aria-label="主要入口">
+                <a class="action action--match" href="?view=quiz">开始趣味匹配</a>
+                <a class="action action--apply" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">直接投递</a>
+              </div>
+            </div>
+          </div>
+          <p class="stage-hint">选择一台游戏机，进入项目介绍</p>
+        </div>
+        <section class="desk" id="projects" aria-labelledby="projects-title">
+          <div class="desk-topline" aria-hidden="true"></div>
+          <h2 id="projects-title" class="sr-only">六个项目试玩台</h2>
+          <div class="project-grid">
+            ${projects
+              .map(
+                (project) => `
+                  <a class="project-station" href="?project=${project.id}" aria-label="查看${project.name}项目介绍">
+                    ${renderConsole(project)}
+                    <span class="project-label">${project.name}</span>
+                    <span class="project-subtitle">${project.stage}</span>
+                  </a>
+                `,
+              )
+              .join("")}
+          </div>
+          <div class="desk-front" aria-hidden="true"></div>
+        </section>
+      </section>
+      <footer class="site-footer">
+        <p>本站为个人制作，内容仅供参考，最终以官方招聘信息为准。</p>
+        <a href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位</a>
+      </footer>
+    </main>
+  `;
+}
+
+function renderPageHeader(kicker, title, description) {
+  return `
+    <header class="route-header">
+      <a class="back-link" href="index.html">← 返回项目工作台</a>
+      <p class="route-kicker">${kicker}</p>
+      <h1>${title}</h1>
+      ${description ? `<p class="route-lede">${description}</p>` : ""}
+    </header>
+  `;
+}
+
+function displayProjectName(project) {
+  return project.name.replace("M98", '<span class="normal-numbers">M98</span>');
+}
+
+function renderProjectPage(project) {
+  app.innerHTML = `
+    <main class="route-shell project-page">
+      ${renderPageHeader("项目介绍 / 策划岗位", displayProjectName(project), project.oneLiner)}
+      <section class="project-hero-layout">
+        <div class="project-hero-art">${renderProjectArt(project)}</div>
+        <div class="project-hero-copy">
+          <p class="project-stage">${project.stage}</p>
+          <p>${project.description}</p>
+          <div class="detail-tags">${project.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
+        </div>
+      </section>
+      <section class="route-section route-roles-section">
+        <div class="section-heading"><p class="route-kicker">开放岗位</p><h2>你可以从哪种策划问题开始</h2></div>
+        <div class="role-list route-role-list">${project.roles.map(([role, city, focus]) => `<article class="role-card"><strong>${role}</strong><span>${city}</span><small>${focus}</small></article>`).join("")}</div>
+        <p class="fit-line"><strong>适合这样的你：</strong>${project.fitHint}</p>
+        <div class="route-apply-panel"><div><p class="route-kicker">校招策划岗位</p><strong>准备好把你的游戏体感写成设计了吗？</strong></div><a class="dialog-cta apply-pulse" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">投递相关岗位 ↗</a></div>
+      </section>
+      <section class="route-section">
+        <div class="section-heading"><p class="route-kicker">岗位重点</p><h2>${project.plannerTitle}</h2></div>
+        <div class="planner-points">${project.plannerPoints.map((point, index) => `<article><span class="point-index">0${index + 1}</span><p>${point}</p></article>`).join("")}</div>
+      </section>
+      <section class="interview-placeholder route-interview"><strong>校招生小访谈</strong><p>访谈内容筹备中，后续将在这里补充同项目校招生的选择、收获与建议。</p></section>
+      <section class="route-cta"><div><p class="route-kicker">下一步</p><h2>把你的游戏体感，写成一次可验证的设计</h2></div><a class="dialog-cta" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">投递 ${project.name} 相关岗位</a></section>
+      <footer class="site-footer route-footer"><p>本站为个人制作，内容仅供参考，最终以官方招聘信息为准。</p><a href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位</a></footer>
+    </main>
+  `;
+}
+
+function recommendation(answers) {
+  if (answers.stage === "new") return "m98";
+  if (answers.tone === "fantasy") return "wand-sword-legend";
+  if (answers.tone === "xianxia") return answers.interest === "combat" ? "ask-sword-longevity" : "a-thought-free";
+  if (answers.tone === "light-turn-based") return "daoyou-dig-treasure";
+  if (answers.tone === "classic-turn-based") return "wen-dao-mobile";
+  if (answers.interest === "numeric" || answers.interest === "combat") return "wand-sword-legend";
+  if (answers.interest === "growth") return "a-thought-free";
+  return "wen-dao-mobile";
+}
+
+function recommendationReason(project, answers) {
+  if (project.id === "m98") return "你选择了新项目现场，说明你更愿意从核心体验骨架开始参与定义。";
+  if (answers.interest === "combat") return "你关注战斗的瞬间，适合先观察机制、技能和反馈如何被做成可体验的规则。";
+  if (answers.interest === "numeric" || answers.interest === "growth") return "你关心成长、强度和选择关系，适合从系统如何服务玩家长期体验开始了解。";
+  return "你更关注完整的玩家旅程，适合先看策划如何把玩法、活动、版本和反馈串成一次体验。";
+}
+
+function quizUrl(step, answers) {
+  const params = new URLSearchParams({ view: "quiz", q: String(step) });
+  Object.entries(answers).forEach(([key, value]) => params.set(key, value));
+  return `?${params.toString()}`;
+}
+
+function renderQuizPage(params) {
+  const step = Math.min(Math.max(Number(params.get("q") || "1"), 1), 3);
+  const answers = { stage: params.get("stage"), interest: params.get("interest"), tone: params.get("tone") };
+  const resultId = params.get("result");
+  if (resultId) {
+    const project = projects.find((item) => item.id === resultId) || projects[0];
+    app.innerHTML = `
+      <main class="route-shell quiz-page">
+        ${renderPageHeader("趣味匹配 / 结果", `推荐先了解 ${displayProjectName(project)}`, "这不是岗位测评，只是从你此刻更想解决的体验问题出发，给你一个项目入口。")}
+        <section class="quiz-result-layout"><div class="result-art-wrap">${renderProjectArt(project, "result")}</div><div class="quiz-result-copy"><p class="route-kicker">你的本轮开局</p><h2>${displayProjectName(project)}</h2><p>${project.oneLiner}</p><p class="reason-line">${recommendationReason(project, answers)}</p><p><strong>开放方向：</strong>${project.roles.map(([role, city]) => `${role} · ${city}`).join(" / ")}</p><div class="quiz-result-actions"><a class="dialog-cta" href="?project=${project.id}">查看项目介绍</a><a class="secondary-button" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位并投递</a><a class="secondary-button" href="?view=quiz">重新匹配</a></div></div></section>
+      </main>
+    `;
+    return;
+  }
+
+  const question = quizQuestions[step - 1];
+  app.innerHTML = `
+    <main class="route-shell quiz-page">
+      ${renderPageHeader(`趣味匹配 / ${step} of 3`, "你的策划开局", "选出你此刻更想解决的体验问题，看看适合先从哪个项目了解。")}
+      <section class="quiz-layout"><div class="quiz-board"><div class="quiz-progress"><span style="width:${(step / 3) * 100}%"></span></div><p class="quiz-step">第 ${step} / 3 题</p><h2>${question.title}</h2><div class="quiz-options">${question.options
+        .map(([value, label, detail]) => {
+          const nextAnswers = { ...answers, [question.id]: value };
+          const href = step === 3 ? `?view=quiz&result=${recommendation(nextAnswers)}&${new URLSearchParams(nextAnswers).toString()}` : quizUrl(step + 1, nextAnswers);
+          return `<a class="quiz-option" href="${href}"><strong>${label}</strong><span>${detail}</span><b>→</b></a>`;
+        })
+        .join("")}</div></div><aside class="quiz-aside"><p class="route-kicker">策划小提示</p><h3>没有标准答案</h3><p>你可以把它当成一次轻量的项目导航。真正的策划工作，会在玩家反馈、数据和团队讨论里继续展开。</p><a class="secondary-button" href="index.html">先回项目工作台</a></aside></section>
+    </main>
+  `;
+}
+
+function renderRoute() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has("project")) {
+    const project = projects.find((item) => item.id === params.get("project"));
+    project ? renderProjectPage(project) : renderHome();
+    return;
+  }
+  if (params.get("view") === "quiz") {
+    renderQuizPage(params);
+    return;
+  }
+  renderHome();
+}
+
+window.addEventListener("popstate", renderRoute);
+renderRoute();
