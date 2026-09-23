@@ -278,17 +278,13 @@ function renderProjectPage(project) {
         </div>
       </section>
       <section class="route-section route-roles-section">
-        <div class="section-heading"><p class="route-kicker">开放岗位</p><h2>你可以从哪种策划问题开始</h2></div>
+        <div class="section-heading"><p class="route-kicker">2027 届校招 · 开放岗位</p><h2>你可以投递的策划方向</h2></div>
         <div class="role-list route-role-list">${project.roles.map(([role, city, focus]) => `<article class="role-card"><strong>${role}</strong><span>${city}</span><small>${focus}</small></article>`).join("")}</div>
+        <div class="planner-role-brief"><div class="planner-role-brief__heading"><p class="route-kicker">岗位重点</p><h3>${project.plannerTitle}</h3></div><div class="planner-points planner-points--compact">${project.plannerPoints.map((point, index) => `<article><span class="point-index">0${index + 1}</span><p>${point}</p></article>`).join("")}</div></div>
         <p class="fit-line"><strong>适合这样的你：</strong>${project.fitHint}</p>
         <div class="route-apply-panel"><div><p class="route-kicker">校招策划岗位</p><strong>准备好把你的游戏体感写成设计了吗？</strong></div><a class="dialog-cta apply-pulse" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">投递相关岗位 ↗</a></div>
       </section>
-      <section class="route-section">
-        <div class="section-heading"><p class="route-kicker">岗位重点</p><h2>${project.plannerTitle}</h2></div>
-        <div class="planner-points">${project.plannerPoints.map((point, index) => `<article><span class="point-index">0${index + 1}</span><p>${point}</p></article>`).join("")}</div>
-      </section>
       <section class="interview-placeholder route-interview"><strong>校招生小访谈</strong><p>访谈内容筹备中，后续将在这里补充同项目校招生的选择、收获与建议。</p></section>
-      <section class="route-cta"><div><p class="route-kicker">下一步</p><h2>把你的游戏体感，写成一次可验证的设计</h2></div><a class="dialog-cta" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">投递 ${project.name} 相关岗位</a></section>
       <footer class="site-footer route-footer"><p>本站为个人制作，内容仅供参考，最终以官方招聘信息为准。</p><a href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位</a></footer>
     </main>
   `;
