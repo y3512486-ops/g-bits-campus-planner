@@ -1353,7 +1353,7 @@ h1 {
 
   .project-label {
     padding: 6px 4px;
-    font-size: clamp(22px, 4.8vw, 27px);
+    font-size: clamp(19px, 5.2vw, 27px);
     font-weight: 700;
     letter-spacing: 0;
   }
@@ -1470,16 +1470,5 @@ h1 {
   .quiz-result-actions .dialog-cta,
   .quiz-result-actions .secondary-button {
     width: 100%;
-  }
-}
-
-@media (max-width: 430px) {
-  .project-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .project-label {
-    font-size: 27px;
   }
 }
