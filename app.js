@@ -22,8 +22,8 @@ const projects = [
       "用 Demo、测试、复盘快速验证想法，再和程序、美术、测试、运营一起推到上线。",
     ],
     fitHint: "适合喜欢拆解 RPG、策略、卡牌或 SLG 机制，并愿意持续验证设计的人。",
-    frame: "assets/frame-wand.png",
-    art: "assets/wand.jpg?v=20260923-project-art",
+    frame: "assets/frame-wand.webp",
+    art: "assets/wand.webp",
     siteUrl: "https://zjcs.leiting.com/?id=M503835",
     screen: { left: 22, top: 18, width: 56, height: 42, radius: 8 },
   },
@@ -43,8 +43,8 @@ const projects = [
       "在精干团队里，从文档、配置、协作、验收一路推进到上线验证。",
     ],
     fitHint: "适合在意玩家为什么投入或流失，也愿意处理文档、协作和验收细节的人。",
-    frame: "assets/frame-daoyou.png",
-    art: "assets/daoyou.jpg?v=20260923-project-art",
+    frame: "assets/frame-daoyou.webp",
+    art: "assets/daoyou.webp",
     siteUrl: "https://acts.leiting.com/game/common/invite/imini_dylwb_1",
     screen: { left: 21, top: 27, width: 58, height: 43, radius: 10 },
   },
@@ -71,8 +71,8 @@ const projects = [
         ["入职后的最大收获？", "项目人手不算充足，入职后很快就能直接接触项目、推进工作，算是经历更多、经验更多。团队氛围很好，导师和前辈有问必答，也会主动关心工作和生活，让我在这里幸福地学到真东西。"],
       ],
     },
-    frame: "assets/frame-wenjian.png",
-    art: "assets/wenjian.jpg?v=20260923-project-art",
+    frame: "assets/frame-wenjian.webp",
+    art: "assets/wenjian.webp",
     siteUrl: "https://jian.leiting.com",
     screen: { left: 26, top: 24.5, width: 48, height: 41, radius: 6 },
   },
@@ -92,8 +92,8 @@ const projects = [
       "结合玩家行为、数据和反馈，持续打磨系统、数值、玩法与长线节奏。",
     ],
     fitHint: "适合对体验本质有好奇心，既能理解不同玩家，也愿意用客观结果验证直觉的人。",
-    frame: "assets/frame-yinian.png",
-    art: "assets/yinian.jpg?v=20260923-project-art",
+    frame: "assets/frame-yinian.webp",
+    art: "assets/yinian.webp",
     siteUrl: "https://xian.leiting.com",
     screen: { left: 26.5, top: 25, width: 47, height: 43.5, radius: 7 },
   },
@@ -113,8 +113,8 @@ const projects = [
       "跟进玩家反馈，在成熟框架里寻找创新点，理解一款产品如何长期运营。",
     ],
     fitHint: "适合热爱传统回合制、对国风文化有兴趣，并想理解长线产品如何持续迭代的人。",
-    frame: "assets/frame-wendao-single.png?v=20260923-project-art",
-    art: "assets/wendao.jpg?v=20260923-project-art",
+    frame: "assets/frame-wendao-single.webp",
+    art: "assets/wendao.webp",
     siteUrl: "https://wd.leiting.com/home",
     screen: { left: 23.4, top: 29.2, width: 53.7, height: 38.3, radius: 4 },
   },
@@ -144,8 +144,8 @@ const projects = [
         ["入职后的最大收获？", "从项目早期开始参与，能直接接触真实问题、推进相关工作，经历更多、经验也更多。"],
       ],
     },
-    frame: "assets/frame-m98.png",
-    art: "assets/m98.png?v=20260923-project-art",
+    frame: "assets/frame-m98.webp",
+    art: "assets/m98.webp",
     siteUrl: null,
     screen: { left: 25.5, top: 29, width: 49, height: 36.5, radius: 2 },
   },
@@ -197,7 +197,7 @@ function screenStyle(screen) {
 
 function renderConsole(project) {
   const primaryScreen = project.art
-    ? `<span class="console-screen" style="${screenStyle(project.screen)}"><img src="${project.art}" alt="${project.name} 官方项目画面" /></span>`
+    ? `<span class="console-screen" style="${screenStyle(project.screen)}"><img src="${project.art}" alt="${project.name} 官方项目画面" loading="lazy" decoding="async" /></span>`
     : `<span class="console-screen console-screen--m98" style="${screenStyle(project.screen)}"><strong>代号 <span class="normal-numbers">M98</span></strong><span>战斗 × 养成</span></span>`;
   const secondaryScreen = project.secondaryArt
     ? `<span class="console-screen console-screen--secondary" style="${screenStyle(project.secondaryScreen)}"><img src="${project.secondaryArt}" alt="" /></span>`
@@ -209,7 +209,7 @@ function renderProjectArt(project, context = "project") {
   if (!project.art) {
     return `<div class="project-art project-art--placeholder" role="img" aria-label="${project.name} 项目画面筹备中"><strong>代号 <span class="normal-numbers">M98</span></strong><span>战斗 × 养成</span></div>`;
   }
-  const image = `<img src="${project.art}" alt="${project.name} 官方项目画面" />`;
+  const image = `<img src="${project.art}" alt="${project.name} 官方项目画面" decoding="async" />`;
   const linkLabel = context === "result" ? "点击进入项目官网" : "点击查看项目官网";
   if (!project.siteUrl) return `<div class="project-art">${image}</div>`;
   return `<a class="project-art project-art-link" href="${project.siteUrl}" target="_blank" rel="noreferrer">${image}<span class="project-art-hint">${linkLabel} ↗</span></a>`;
@@ -246,7 +246,7 @@ function renderHome() {
                 (project) => `
                   <a class="project-station" href="?project=${project.id}" aria-label="查看${project.name}项目介绍">
                     ${renderConsole(project)}
-                    <span class="project-label${["daoyou-dig-treasure", "m98"].includes(project.id) ? " project-label--compact" : ""}">${project.name}</span>
+                    <span class="project-label">${project.name}</span>
                     <span class="project-subtitle">${project.stage}</span>
                   </a>
                 `,
