@@ -360,11 +360,6 @@ function renderRoleCard(project, [role, city, focus], index) {
   return `<article class="role-card"><strong>${role}</strong><span>${city}</span><small>${focus}</small><div class="role-work"><p>你会参与</p><ul>${rolePoints.map((point) => `<li>${point}</li>`).join("")}</ul></div></article>`;
 }
 
-function renderInterview(project) {
-  if (!project.interview) return "";
-  return `<section class="interview-placeholder route-interview route-interview--filled"><div class="interview-heading"><div><p class="route-kicker">校招生小访谈</p><strong>${project.interview.title}</strong></div><span>真实分享</span></div><div class="interview-answers">${project.interview.answers.map(([question, answer]) => `<article class="interview-answer"><h3>${question}</h3><p>${answer}</p></article>`).join("")}</div></section>`;
-}
-
 function renderProjectPage(project) {
   const sharedWork = project.roles.length > 1 ? project.plannerPoints.slice(project.roles.length) : [];
   app.innerHTML = `
@@ -385,7 +380,6 @@ function renderProjectPage(project) {
         <p class="fit-line"><strong>适合这样的你：</strong>${project.fitHint}${sharedWork.length ? `<span class="fit-workflow"><strong>工作方式：</strong>${sharedWork.join(" ")}</span>` : ""}</p>
         <div class="route-apply-panel"><div><p class="route-kicker">官方投递</p><strong>准备好把你的游戏体感写成设计了吗？</strong></div><a class="dialog-cta apply-pulse" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位并投递 <span aria-hidden="true">↗</span></a></div>
       </section>
-      ${renderInterview(project)}
       <footer class="site-footer route-footer"><p>本站为个人制作，内容仅供参考，最终以官方招聘信息为准。</p><a href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位</a></footer>
     </main>
   `;
