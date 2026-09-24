@@ -2026,6 +2026,7 @@ h1 {
 
 .route-apply-panel {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
   align-items: stretch;
   padding: 22px 24px;
