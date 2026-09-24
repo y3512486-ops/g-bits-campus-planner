@@ -2027,6 +2027,7 @@ h1 {
 .route-apply-panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  justify-content: stretch;
   gap: 18px;
   align-items: stretch;
   padding: 22px 24px;
@@ -2046,6 +2047,7 @@ h1 {
 
 .route-apply-panel .dialog-cta {
   width: 100%;
+  justify-self: stretch;
   min-height: 56px;
   color: var(--color-surface);
   font-size: 16px;
