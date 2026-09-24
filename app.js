@@ -247,23 +247,30 @@ function renderHome() {
     ${renderSiteHeader("home")}
     <main class="site-shell" id="main-content">
       <section class="playtest-room" aria-labelledby="site-title">
-        <div class="hero-masthead">
-          <div class="hero-content">
-            <p class="eyebrow">2027 届秋招</p>
-            <h1 id="site-title">吉比特游戏策划</h1>
-            <p class="hero-meta">6 个项目 · 8 个职位 · 厦门 / 深圳</p>
-            <p class="hero-copy"><a href="${GBITS_SITE_URL}" target="_blank" rel="noreferrer">吉比特</a>专注网络游戏的创意策划、研发制作与运营；雷霆游戏为旗下运营品牌。</p>
-            <div class="hero-actions" aria-label="主要入口">
-              <a class="action action--apply" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位并投递 <span aria-hidden="true">↗</span></a>
-              <a class="action action--match" href="?view=quiz">开始趣味匹配</a>
+        <div class="wall-detail wall-detail--left" aria-hidden="true"></div>
+        <div class="wall-detail wall-detail--right" aria-hidden="true"></div>
+        <div class="tablet-stage">
+          <div class="tablet" aria-label="校招专题开局屏幕">
+            <div class="tablet-camera" aria-hidden="true"></div>
+            <div class="tablet-screen">
+              <p class="eyebrow">2027 届秋招</p>
+              <h1 id="site-title">吉比特游戏策划</h1>
+              <p class="hero-meta">6 个项目 · 8 个职位 · 厦门 / 深圳</p>
+              <p class="hero-copy"><a href="${GBITS_SITE_URL}" target="_blank" rel="noreferrer">吉比特</a>专注网络游戏的创意策划、研发制作与运营；雷霆游戏为旗下运营品牌。</p>
+              <div class="hero-actions" aria-label="主要入口">
+                <a class="action action--apply" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位并投递 <span aria-hidden="true">↗</span></a>
+                <a class="action action--match" href="?view=quiz">开始趣味匹配</a>
+              </div>
             </div>
           </div>
         </div>
         <section class="desk" id="projects" aria-labelledby="projects-title">
           <div class="projects-heading">
             <div>
+              <p class="section-eyebrow">PROJECT EXPLORER</p>
               <h2 id="projects-title">选择一台游戏机，看看策划会做什么</h2>
             </div>
+            <span class="project-count">6 个项目</span>
           </div>
           <div class="project-grid">
             ${projects
@@ -310,12 +317,12 @@ function renderRoleCard(project, [role, city, focus], index) {
   const rolePoints = project.roles.length === 1
     ? project.plannerPoints
     : [project.plannerPoints[index]].filter(Boolean);
-  return `<article class="role-card"><div class="role-summary"><strong>${role}</strong><span>${city}</span></div><div class="role-description"><small>${focus}</small><div class="role-work"><p>你会参与</p><ul>${rolePoints.map((point) => `<li>${point}</li>`).join("")}</ul></div></div></article>`;
+  return `<article class="role-card"><strong>${role}</strong><span>${city}</span><small>${focus}</small><div class="role-work"><p>你会参与</p><ul>${rolePoints.map((point) => `<li>${point}</li>`).join("")}</ul></div></article>`;
 }
 
 function renderInterview(project) {
   if (!project.interview) return "";
-  return `<section class="interview-placeholder route-interview route-interview--filled"><div class="interview-heading"><div><p class="route-kicker">校招生小访谈</p><strong>${project.interview.title}</strong></div></div><div class="interview-answers">${project.interview.answers.map(([question, answer]) => `<article class="interview-answer"><h3>${question}</h3><p>${answer}</p></article>`).join("")}</div></section>`;
+  return `<section class="interview-placeholder route-interview route-interview--filled"><div class="interview-heading"><div><p class="route-kicker">校招生小访谈</p><strong>${project.interview.title}</strong></div><span>真实分享</span></div><div class="interview-answers">${project.interview.answers.map(([question, answer]) => `<article class="interview-answer"><h3>${question}</h3><p>${answer}</p></article>`).join("")}</div></section>`;
 }
 
 function renderProjectPage(project) {
@@ -378,7 +385,7 @@ function renderQuizPage(params) {
       ${renderSiteHeader("quiz")}
       <main class="route-shell quiz-page" id="main-content">
         ${renderPageHeader("趣味匹配 / 结果", `推荐先了解 ${displayProjectName(project)}`, "这不是岗位测评，只是从你此刻更想解决的体验问题出发，给你一个项目入口。")}
-        <section class="quiz-result-layout"><div class="result-art-wrap">${renderProjectArt(project, "result")}</div><div class="quiz-result-copy"><p class="route-kicker">你的本轮开局</p><h2>${displayProjectName(project)}</h2><p>${project.oneLiner}</p><p class="reason-line">${recommendationReason(project, answers)}</p><p><strong>开放方向：</strong>${project.roles.map(([role, city]) => `${role} · ${city}`).join(" / ")}</p><div class="quiz-result-actions"><a class="dialog-cta" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位并投递 <span aria-hidden="true">↗</span></a><a class="secondary-button" href="?project=${project.id}">查看项目介绍</a><a class="text-link" href="?view=quiz">重新匹配</a></div></div></section>
+        <section class="quiz-result-layout"><div class="result-art-wrap">${renderProjectArt(project, "result")}</div><div class="quiz-result-copy"><p class="route-kicker">你的本轮开局</p><h2>${displayProjectName(project)}</h2><p>${project.oneLiner}</p><p class="reason-line">${recommendationReason(project, answers)}</p><p><strong>开放方向：</strong>${project.roles.map(([role, city]) => `${role} · ${city}`).join(" / ")}</p><div class="quiz-result-actions"><a class="dialog-cta" href="?project=${project.id}">查看项目介绍</a><a class="secondary-button" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位并投递</a><a class="secondary-button" href="?view=quiz">重新匹配</a></div></div></section>
       </main>
     `;
     return;
@@ -389,14 +396,13 @@ function renderQuizPage(params) {
     ${renderSiteHeader("quiz")}
     <main class="route-shell quiz-page" id="main-content">
       ${renderPageHeader(`趣味匹配 / ${step} of 3`, "你的策划开局", "选出你此刻更想解决的体验问题，看看适合先从哪个项目了解。")}
-      <p class="quiz-inline-tip"><strong>没有标准答案。</strong>你可以把它当成一次轻量的项目导航；真正的策划工作，会在玩家反馈、数据和团队讨论里继续展开。</p>
       <section class="quiz-layout"><div class="quiz-board"><div class="quiz-progress"><span style="width:${(step / 3) * 100}%"></span></div><p class="quiz-step">第 ${step} / 3 题</p><h2>${question.title}</h2><div class="quiz-options">${question.options
         .map(([value, label, detail]) => {
           const nextAnswers = { ...answers, [question.id]: value };
           const href = step === 3 ? `?view=quiz&result=${recommendation(nextAnswers)}&${new URLSearchParams(nextAnswers).toString()}` : quizUrl(step + 1, nextAnswers);
           return `<a class="quiz-option" href="${href}"><strong>${label}</strong><span>${detail}</span><b>→</b></a>`;
         })
-        .join("")}</div></div></section>
+        .join("")}</div></div><aside class="quiz-aside"><p class="route-kicker">策划小提示</p><h3>没有标准答案</h3><p>你可以把它当成一次轻量的项目导航。真正的策划工作，会在玩家反馈、数据和团队讨论里继续展开。</p></aside></section>
     </main>
   `;
 }
