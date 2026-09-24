@@ -169,6 +169,10 @@ const quizQuestions = [
       ["growth", "角色与 Build", "角色、装备成长和不同策略选择。"],
       ["general", "一整段玩家旅程", "整体玩法、活动、版本内容与用户体验。"],
     ],
+    newProjectOptions: [
+      ["combat", "战斗策划", "技能机制、手感、节奏与反馈。"],
+      ["growth", "养成策划", "角色、装备成长与 Build 策略。"],
+    ],
   },
   {
     id: "tone",
@@ -254,9 +258,8 @@ function renderHome() {
             <div class="tablet-camera" aria-hidden="true"></div>
             <div class="tablet-screen">
               <p class="eyebrow">2027 届秋招</p>
-              <h1 id="site-title">吉比特游戏策划</h1>
+              <h1 id="site-title"><a class="site-title-link" href="${GBITS_SITE_URL}" target="_blank" rel="noreferrer" aria-label="访问吉比特官网">吉比特游戏策划 <span aria-hidden="true">↗</span></a></h1>
               <p class="hero-meta">6 个项目 · 8 个职位 · 厦门 / 深圳</p>
-              <p class="hero-copy"><a href="${GBITS_SITE_URL}" target="_blank" rel="noreferrer">吉比特</a>专注网络游戏的创意策划、研发制作与运营；雷霆游戏为旗下运营品牌。</p>
               <div class="hero-actions" aria-label="主要入口">
                 <a class="action action--apply" href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位并投递 <span aria-hidden="true">↗</span></a>
                 <a class="action action--match" href="?view=quiz">开始趣味匹配</a>
@@ -288,6 +291,7 @@ function renderHome() {
               )
               .join("")}
           </div>
+          ${renderHomeInterviews()}
         </section>
       </section>
       <footer class="site-footer">
@@ -295,6 +299,44 @@ function renderHome() {
         <a href="${OFFICIAL_JOB_LIST_URL}" target="_blank" rel="noreferrer">查看官方岗位</a>
       </footer>
     </main>
+  `;
+}
+
+function renderHomeInterviews() {
+  const interviewProjects = projects.filter((project) => project.interview);
+  if (!interviewProjects.length) return "";
+  return `
+    <section class="home-interviews" aria-labelledby="home-interviews-title">
+      <div class="home-interviews-heading">
+        <div>
+          <p class="section-eyebrow">STUDENT VOICES</p>
+          <h2 id="home-interviews-title">校招生正在项目里做什么</h2>
+        </div>
+        <p>来自项目一线的真实分享</p>
+      </div>
+      <div class="home-interview-grid">
+        ${interviewProjects
+          .map(
+            (project) => `
+              <article class="home-interview-card">
+                <p class="home-interview-project">${displayProjectName(project)} 项目 · 游戏策划校招生</p>
+                ${project.interview.answers
+                  .map(
+                    ([question, answer]) => `
+                      <div class="home-interview-answer">
+                        <h3>${question}</h3>
+                        <p>${answer}</p>
+                      </div>
+                    `,
+                  )
+                  .join("")}
+                <a class="home-interview-link" href="?project=${project.id}">查看 ${displayProjectName(project)} 岗位介绍 <span aria-hidden="true">→</span></a>
+              </article>
+            `,
+          )
+          .join("")}
+      </div>
+    </section>
   `;
 }
 
@@ -375,9 +417,21 @@ function quizUrl(step, answers) {
   return `?${params.toString()}`;
 }
 
+function quizTotalSteps(answers) {
+  return answers.stage === "new" ? 2 : 3;
+}
+
+function quizOptions(question, answers) {
+  if (question.id === "interest" && answers.stage === "new") {
+    return question.newProjectOptions;
+  }
+  return question.options;
+}
+
 function renderQuizPage(params) {
-  const step = Math.min(Math.max(Number(params.get("q") || "1"), 1), 3);
   const answers = { stage: params.get("stage"), interest: params.get("interest"), tone: params.get("tone") };
+  const totalSteps = quizTotalSteps(answers);
+  const step = Math.min(Math.max(Number(params.get("q") || "1"), 1), totalSteps);
   const resultId = params.get("result");
   if (resultId) {
     const project = projects.find((item) => item.id === resultId) || projects[0];
@@ -392,14 +446,15 @@ function renderQuizPage(params) {
   }
 
   const question = quizQuestions[step - 1];
+  const options = quizOptions(question, answers);
   app.innerHTML = `
     ${renderSiteHeader("quiz")}
     <main class="route-shell quiz-page" id="main-content">
-      ${renderPageHeader(`趣味匹配 / ${step} of 3`, "你的策划开局", "选出你此刻更想解决的体验问题，看看适合先从哪个项目了解。")}
-      <section class="quiz-layout"><div class="quiz-board"><div class="quiz-progress"><span style="width:${(step / 3) * 100}%"></span></div><p class="quiz-step">第 ${step} / 3 题</p><h2>${question.title}</h2><div class="quiz-options">${question.options
+      ${renderPageHeader(`趣味匹配 / ${step} of ${totalSteps}`, "你的策划开局", "选出你此刻更想解决的体验问题，看看适合先从哪个项目了解。")}
+      <section class="quiz-layout"><div class="quiz-board"><div class="quiz-progress"><span style="width:${(step / totalSteps) * 100}%"></span></div><p class="quiz-step">第 ${step} / ${totalSteps} 题</p><h2>${question.title}</h2><div class="quiz-options">${options
         .map(([value, label, detail]) => {
           const nextAnswers = { ...answers, [question.id]: value };
-          const href = step === 3 ? `?view=quiz&result=${recommendation(nextAnswers)}&${new URLSearchParams(nextAnswers).toString()}` : quizUrl(step + 1, nextAnswers);
+          const href = step === totalSteps ? `?view=quiz&result=${recommendation(nextAnswers)}&${new URLSearchParams(nextAnswers).toString()}` : quizUrl(step + 1, nextAnswers);
           return `<a class="quiz-option" href="${href}"><strong>${label}</strong><span>${detail}</span><b>→</b></a>`;
         })
         .join("")}</div></div><aside class="quiz-aside"><p class="route-kicker">策划小提示</p><h3>没有标准答案</h3><p>你可以把它当成一次轻量的项目导航。真正的策划工作，会在玩家反馈、数据和团队讨论里继续展开。</p></aside></section>
