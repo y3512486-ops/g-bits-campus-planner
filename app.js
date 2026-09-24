@@ -162,12 +162,11 @@ const quizQuestions = [
   },
   {
     id: "interest",
-    title: "你现在最想先拆哪一道设计题？",
+    title: "如果先从一块开始，你想把哪儿做得更好玩？",
     options: [
-      ["numeric", "成长与强度", "数值平衡、成长曲线、系统关系。"],
-      ["combat", "战斗的一瞬间", "技能机制、手感、节奏与反馈。"],
-      ["growth", "角色与 Build", "角色、装备成长和不同策略选择。"],
-      ["general", "一整段玩家旅程", "整体玩法、活动、版本内容与用户体验。"],
+      ["numeric", "成长与系统", "成长节奏、资源投放、流派平衡。"],
+      ["combat", "战斗与技能", "机制规则、技能组合、战斗节奏。"],
+      ["general", "玩法与版本", "玩家体验、内容迭代、长期运营。"],
     ],
     newProjectOptions: [
       ["combat", "战斗策划", "技能机制、手感、节奏与反馈。"],
@@ -176,13 +175,12 @@ const quizQuestions = [
   },
   {
     id: "tone",
-    title: "哪种游戏气质最让你想点进去？",
+    title: "下面哪个策划场景，更让你想动手试试？",
     options: [
-      ["fantasy", "异世界幻想", "轻松成长、探索与策略对抗。"],
-      ["xianxia", "国风修仙", "御剑、技能、社交或长线成长。"],
-      ["light-turn-based", "轻量国风回合", "挖宝、挂机和多样玩法。"],
-      ["classic-turn-based", "经典国风回合", "社交、版本与长期运营。"],
-      ["role-first", "题材都可以", "我更看重岗位方向本身。"],
+      ["classic-turn-based", "经典回合制的新版本", "老玩法不乱，新目标要有。"],
+      ["xianxia-growth", "更有修仙感的成长", "修炼、突破、功法都得有体感。"],
+      ["xianxia-social", "御剑斗法和轻社交", "战斗能研究，社交不费劲。"],
+      ["light-turn-based", "几分钟也能玩爽的挖宝", "轻量循环，还能持续回来。"],
     ],
   },
 ];
@@ -395,19 +393,22 @@ function renderProjectPage(project) {
 
 function recommendation(answers) {
   if (answers.stage === "new") return "m98";
-  if (answers.tone === "fantasy") return "wand-sword-legend";
-  if (answers.tone === "xianxia") return answers.interest === "combat" ? "ask-sword-longevity" : "a-thought-free";
-  if (answers.tone === "light-turn-based") return "daoyou-dig-treasure";
-  if (answers.tone === "classic-turn-based") return "wen-dao-mobile";
   if (answers.interest === "numeric" || answers.interest === "combat") return "wand-sword-legend";
-  if (answers.interest === "growth") return "a-thought-free";
+  if (answers.tone === "classic-turn-based") return "wen-dao-mobile";
+  if (answers.tone === "xianxia-growth") return "a-thought-free";
+  if (answers.tone === "xianxia-social") return "ask-sword-longevity";
+  if (answers.tone === "light-turn-based") return "daoyou-dig-treasure";
   return "wen-dao-mobile";
 }
 
 function recommendationReason(project, answers) {
   if (project.id === "m98") return "你选择了新项目现场，说明你更愿意从核心体验骨架开始参与定义。";
   if (answers.interest === "combat") return "你关注战斗的瞬间，适合先观察机制、技能和反馈如何被做成可体验的规则。";
-  if (answers.interest === "numeric" || answers.interest === "growth") return "你关心成长、强度和选择关系，适合从系统如何服务玩家长期体验开始了解。";
+  if (answers.interest === "numeric") return "你关心成长、强度和选择关系，适合从系统如何服务玩家长期体验开始了解。";
+  if (project.id === "wen-dao-mobile") return "你想在成熟的玩法里，为玩家留下一次值得回来的新目标。";
+  if (project.id === "a-thought-free") return "你更关注题材感如何变成长期、有体感的成长过程。";
+  if (project.id === "ask-sword-longevity") return "你希望让战斗策略与轻社交维持恰到好处的平衡。";
+  if (project.id === "daoyou-dig-treasure") return "你想用短而明确的循环，抓住玩家每一次碎片时间。";
   return "你更关注完整的玩家旅程，适合先看策划如何把玩法、活动、版本和反馈串成一次体验。";
 }
 
@@ -418,7 +419,9 @@ function quizUrl(step, answers) {
 }
 
 function quizTotalSteps(answers) {
-  return answers.stage === "new" ? 2 : 3;
+  if (answers.stage === "new") return 2;
+  if (answers.stage === "live" && ["numeric", "combat"].includes(answers.interest)) return 2;
+  return 3;
 }
 
 function quizOptions(question, answers) {
@@ -450,11 +453,12 @@ function renderQuizPage(params) {
   app.innerHTML = `
     ${renderSiteHeader("quiz")}
     <main class="route-shell quiz-page" id="main-content">
-      ${renderPageHeader(`趣味匹配 / ${step} of ${totalSteps}`, "你的策划开局", "选出你此刻更想解决的体验问题，看看适合先从哪个项目了解。")}
-      <section class="quiz-layout"><div class="quiz-board"><div class="quiz-progress"><span style="width:${(step / totalSteps) * 100}%"></span></div><p class="quiz-step">第 ${step} / ${totalSteps} 题</p><h2>${question.title}</h2><div class="quiz-options">${options
+      ${renderPageHeader(`趣味匹配 / 第 ${step} 题`, "你的策划开局", "选出你此刻更想解决的体验问题，看看适合先从哪个项目了解。")}
+      <section class="quiz-layout"><div class="quiz-board"><div class="quiz-progress"><span style="width:${(step / totalSteps) * 100}%"></span></div><p class="quiz-step">第 ${step} 题</p><h2>${question.title}</h2><div class="quiz-options">${options
         .map(([value, label, detail]) => {
           const nextAnswers = { ...answers, [question.id]: value };
-          const href = step === totalSteps ? `?view=quiz&result=${recommendation(nextAnswers)}&${new URLSearchParams(nextAnswers).toString()}` : quizUrl(step + 1, nextAnswers);
+          const nextTotalSteps = quizTotalSteps(nextAnswers);
+          const href = step >= nextTotalSteps ? `?view=quiz&result=${recommendation(nextAnswers)}&${new URLSearchParams(nextAnswers).toString()}` : quizUrl(step + 1, nextAnswers);
           return `<a class="quiz-option" href="${href}"><strong>${label}</strong><span>${detail}</span><b>→</b></a>`;
         })
         .join("")}</div></div><aside class="quiz-aside"><p class="route-kicker">策划小提示</p><h3>没有标准答案</h3><p>你可以把它当成一次轻量的项目导航。真正的策划工作，会在玩家反馈、数据和团队讨论里继续展开。</p></aside></section>
